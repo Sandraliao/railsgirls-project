@@ -1,0 +1,24 @@
+<div class="posts">
+<% @posts.each do |post| %>
+<div class="post">
+  <h1><%= link_to post.title, post %></h1>
+  <%= image_tag(post.picture_url, width: 300)if post.picture.present? %>
+  <div>
+    <% if post.content.length > 200 %> 
+      <%= simple_format(truncate(post.content, length: 200)) %>
+      <%= link_to "(Read more)", post %>
+    <% else %>
+      <%= simple_format(post.content) %>
+    <% end %>
+
+  </div>
+  <% if current_user %>
+  <%= link_to 'Edit', edit_post_path(post) %>
+  <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+  
+  
+</div>
+<% end %>
+</div>
+
